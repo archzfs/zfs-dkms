@@ -9,12 +9,18 @@ pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
 pkgver=0.7.9
-pkgrel=2
+pkgrel=3
 makedepends=()
 arch=("x86_64")
 url="http://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-0.7.9/zfs-0.7.9.tar.gz" "upstream-ac09630-Fix-zpl_mount-deadlock.patch")
-sha256sums=("f50ca2441c6abde4fe6b9f54d5583a45813031d6bb72b0011b00fc2683cd9f7a" "1799f6f7b2a60a23b66106c9470414628398f6bfc10da3d0f41c548bba6130e8")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-0.7.9/zfs-0.7.9.tar.gz" 
+        "upstream-ac09630-Fix-zpl_mount-deadlock.patch"
+        "upstream-9f64c1e-Linux-4.18-compat-inode-timespec_timespec64.patch"
+        "upstream-9161ace-Linux-compat-4.18-check_disk_size_change.patch")
+sha256sums=("f50ca2441c6abde4fe6b9f54d5583a45813031d6bb72b0011b00fc2683cd9f7a" 
+            "1799f6f7b2a60a23b66106c9470414628398f6bfc10da3d0f41c548bba6130e8"
+            "03ed45af40850c3a51a6fd14f36c1adc06501c688a67afb13db4fded6ec9db1d"
+            "afbde4a2507dff989404665dbbdfe18eecf5aba716a6513902affa0e4cb033fe")
 license=("CDDL")
 depends=('spl-dkms' "zfs-utils-common=0.7.9" "lsb-release")
 provides=("zfs")
@@ -23,6 +29,8 @@ conflicts=('zfs-dkms-git' 'zfs-archiso-linux' 'zfs-archiso-linux-git' 'zfs-linux
 prepare() {
     cd "${srcdir}/zfs-0.7.9"
     patch -Np1 -i ${srcdir}/upstream-ac09630-Fix-zpl_mount-deadlock.patch
+    patch -Np1 -i ${srcdir}/upstream-9f64c1e-Linux-4.18-compat-inode-timespec_timespec64.patch
+    patch -Np1 -i ${srcdir}/upstream-9161ace-Linux-compat-4.18-check_disk_size_change.patch
 }
 
 build() {
