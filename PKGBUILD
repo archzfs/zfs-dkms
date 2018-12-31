@@ -9,17 +9,23 @@ pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
 pkgver=0.7.12
-pkgrel=1
+pkgrel=2
 makedepends=()
 arch=("x86_64")
 url="http://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("720e3b221c1ba5d4c18c990e48b86a2eb613575a0c3cc84c0aa784b17b7c2848")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        "upstream-4f981f6-additional-fixes-for-current_kernel_time-in-4.20.patch")
+sha256sums=("720e3b221c1ba5d4c18c990e48b86a2eb613575a0c3cc84c0aa784b17b7c2848"
+            "6f27c3dae57c424e06aec31df6c1e1a821e547aa4e933f2f9b894b5e6762b52d")
 license=("CDDL")
 depends=('spl-dkms' "zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers")
+prepare() {
+    cd "${srcdir}/zfs-${pkgver}"
+    patch -Np1 -i ${srcdir}/upstream-4f981f6-additional-fixes-for-current_kernel_time-in-4.20.patch
+}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
