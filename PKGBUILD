@@ -9,18 +9,30 @@ pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
 pkgver=0.8.1
-pkgrel=1
+pkgrel=3
 makedepends=()
 arch=("x86_64")
-url="http://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("0af79fde44b7b8ecb94d5166ce2e4fff7409c20ed874c2d759db92909e6c2799")
+url="https://zfsonlinux.org/"
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        "linux-5.3-compat-rw_semaphore-owner.patch"
+        "linux-5.3-compat-retire-rw_tryupgrade.patch"
+        "linux-5.3-compat-Makefile-subdir-m-no-longer-supported.patch")
+sha256sums=("0af79fde44b7b8ecb94d5166ce2e4fff7409c20ed874c2d759db92909e6c2799"
+            "c65c950abda42fb91fb99c6c916a50720a522c53e01a872f9310a4719bae9e2a"
+            "19f798a29c00874874751880f1146c5849b8ebdb6233d8ae923f9fdd4661de19"
+            "6c4627875dd1724f64a196ea584812c99635897dc31cb23641f308770289059a")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
+prepare() {
+    cd "${srcdir}/zfs-${pkgver}"
+    patch -Np1 -i ${srcdir}/linux-5.3-compat-rw_semaphore-owner.patch
+    patch -Np1 -i ${srcdir}/linux-5.3-compat-retire-rw_tryupgrade.patch
+    patch -Np1 -i ${srcdir}/linux-5.3-compat-Makefile-subdir-m-no-longer-supported.patch
+}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
