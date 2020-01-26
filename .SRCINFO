@@ -1,12 +1,12 @@
 pkgbase = zfs-dkms
 	pkgdesc = Kernel modules for the Zettabyte File System.
-	pkgver = 0.8.2
+	pkgver = 0.8.3
 	pkgrel = 1
 	url = https://zfsonlinux.org/
 	arch = x86_64
 	groups = archzfs-dkms
 	license = CDDL
-	depends = zfs-utils=0.8.2
+	depends = zfs-utils=0.8.3
 	depends = lsb-release
 	depends = dkms
 	provides = zfs
@@ -18,8 +18,8 @@ pkgbase = zfs-dkms
 	conflicts = spl
 	conflicts = spl-headers
 	replaces = spl-dkms
-	source = https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.2/zfs-0.8.2.tar.gz
-	sha256sums = 47608e257c8ecebb918014ef1da6172c3a45d990885891af18e80f5cc28beab8
+	source = https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.3/zfs-0.8.3.tar.gz
+	sha256sums = 545a4897ce30c2d2dd9010a0fdb600a0d3d45805e2387093c473efc03aa9d7fd
 
 pkgname = zfs-dkms
 
