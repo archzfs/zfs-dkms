@@ -9,7 +9,7 @@ pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
 pkgver=0.8.3
-pkgrel=3
+pkgrel=4
 makedepends=()
 arch=("x86_64")
 url="https://zfsonlinux.org/"
