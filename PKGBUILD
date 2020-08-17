@@ -13,14 +13,22 @@ pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("2b988f5777976f09d08083f6bebf6e67219c4c4c183c1f33033fb7e5e5eacafb")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+        "linux-5.8-compat-__vmalloc.patch"
+)
+sha256sums=("2b988f5777976f09d08083f6bebf6e67219c4c4c183c1f33033fb7e5e5eacafb"
+            "264728b1e4f7f7509fde76b6049c93033aa813ae6324f37609ff95db8c9e8959"
+)
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
+prepare() {
+    cd "${srcdir}/zfs-${pkgver}"
+    patch -Np1 -i ${srcdir}/linux-5.8-compat-__vmalloc.patch
+}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
