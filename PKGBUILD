@@ -13,18 +13,24 @@ pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("3403bf8e993f3c9d772f768142117df47bdbbb8e9bbf85a29c0e166f577f9311")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+              "autoconf-270-compatibility.patch")
+sha256sums=("3403bf8e993f3c9d772f768142117df47bdbbb8e9bbf85a29c0e166f577f9311"
+                        "dc82ee4e62f76b68d972423909c38ced28dea876c6ef4f19037a24a8dbb2fff5")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
+prepare() {
+    cd "${srcdir}/zfs-${pkgver}"
+    patch -Np1 -i ${srcdir}/autoconf-270-compatibility.patch
+}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
-    ./autogen.sh
+    ./autogen.sh || true
 }
 
 package() {
