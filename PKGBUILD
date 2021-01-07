@@ -8,25 +8,19 @@
 pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://zfsonlinux.org/"
-source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
-              "autoconf-270-compatibility.patch")
-sha256sums=("3403bf8e993f3c9d772f768142117df47bdbbb8e9bbf85a29c0e166f577f9311"
-                        "dc82ee4e62f76b68d972423909c38ced28dea876c6ef4f19037a24a8dbb2fff5")
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=("71510a6381d9910d75fa52d7bbf0863aa80ff88f337c8a023e267f4ba8486978")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
-prepare() {
-    cd "${srcdir}/zfs-${pkgver}"
-    patch -Np1 -i ${srcdir}/autoconf-270-compatibility.patch
-}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
