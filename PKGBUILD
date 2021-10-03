@@ -34,5 +34,4 @@ package() {
     cd "${dkmsdir}"
     find . -name ".git*" -print0 | xargs -0 rm -fr --
     scripts/dkms.mkconf -v ${pkgver} -f dkms.conf -n zfs
-    chmod g-w,o-w -R .
 }
