@@ -9,18 +9,24 @@ pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
 pkgver=2.1.9
-pkgrel=1
+pkgrel=2
 makedepends=()
 arch=("x86_64")
 url="https://openzfs.org/"
-source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("6b172cdf2eb54e17fcd68f900fab33c1430c5c59848fa46fab83614922fe50f6")
+source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz"
+                "linux-6.3-compat-add-another-bdev_io_acct-case.patch")
+sha256sums=("6b172cdf2eb54e17fcd68f900fab33c1430c5c59848fa46fab83614922fe50f6"
+                          "14b099062abdb8923266f8f39c50d4b98755e6324ae6ce36d322c361b85387ee")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
+prepare() {
+    cd "${srcdir}/zfs-${pkgver}"
+    patch -Np1 -i ${srcdir}/linux-6.3-compat-add-another-bdev_io_acct-case.patch
+}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
