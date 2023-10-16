@@ -8,13 +8,13 @@
 pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
-pkgver=2.1.13
+pkgver=2.2.0
 pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://openzfs.org/"
 source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
-sha256sums=("06b24cbb3cbc1554e2edf2fcd71d1f8bec4febf4412aeac17070877c44302abd")
+sha256sums=("42035fd059faa25a09cd511b24a57b8ad1285cb69127f2a0043b98562c5ec690")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
