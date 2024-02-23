@@ -8,23 +8,19 @@
 pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
-pkgver=2.2.2
-pkgrel=3
+pkgver=2.2.3
+pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://openzfs.org/"
-source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz" "linux-6.7-compat.patch")
-sha256sums=("76bc0547d9ba31d4b0142e417aaaf9f969072c3cb3c1a5b10c8738f39ed12fc9" "43bca1a6717bfc77d42a4c51656c38674c6be8d7ec46f04c7febcdafd9295916")
+source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=("30a512f34ec5c841b8b2b32cc9c1a03fd49391b26c9164d3fb30573fb5d81ac3")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
-prepare() {
-    cd "${srcdir}/zfs-${pkgver}"
-    patch -Np1 -i ${srcdir}/linux-6.7-compat.patch
-}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
