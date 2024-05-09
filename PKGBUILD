@@ -8,25 +8,19 @@
 pkgname="zfs-dkms"
 pkgdesc="Kernel modules for the Zettabyte File System."
 
-pkgver=2.2.3
-pkgrel=2
+pkgver=2.2.4
+pkgrel=1
 makedepends=()
 arch=("x86_64")
 url="https://openzfs.org/"
-source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz" "enforce-kernel-max-version.patch" "linux-6.8-compat.patch" "kernel-6.8-meta.patch")
-sha256sums=("30a512f34ec5c841b8b2b32cc9c1a03fd49391b26c9164d3fb30573fb5d81ac3" "c5a9f546638c706844d5aff99f40366db1684679c3318d3a4093e0746748a711" "b875c877069a4c75c7b2b4b22d048e66f415b86f862ef6b3b83d3524694cc973" "1bc3b2e79e481b1bf41e78f9d142de8e97326288ecdc97f8db65496b7c4fd63b")
+source=("https://github.com/openzfs/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=("9790905f7683d41759418e1ef3432828c31116654ff040e91356ff1c21c31ec0")
 license=("CDDL")
 depends=("zfs-utils=${pkgver}" "lsb-release" "dkms")
 provides=("zfs" "zfs-headers" "spl" "spl-headers")
 groups=("archzfs-dkms")
 conflicts=("zfs" "zfs-headers" "spl" "spl-headers")
 replaces=("spl-dkms")
-prepare() {
-    cd "${srcdir}/zfs-${pkgver}"
-    patch -Np1 -i ${srcdir}/enforce-kernel-max-version.patch
-    patch -Np1 -i ${srcdir}/linux-6.8-compat.patch
-    patch -Np1 -i ${srcdir}/kernel-6.8-meta.patch
-}
 
 build() {
     cd "${srcdir}/zfs-${pkgver}"
